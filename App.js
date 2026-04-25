@@ -1,5 +1,5 @@
 import Routes from "./src/navigation";
 
-export default function app(){
-  return <routes/>
+export default function App() {
+    return <Routes />
 }

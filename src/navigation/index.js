@@ -1,19 +1,19 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import login from "../screens/login";
-import home from "../screens/home";
-import novamovimentacao from "../screens/novamovimentacao";
-import { StackScreen } from "react-native-screens";
+import Login from "../screens/login";
+import Home from "../screens/home";
+import Novamovimentacao from "../screens/novamovimentacao";
+// ← remover o import de StackScreen, não existe
 
-const stack = createNativeStackNavigator();
-export default function Router(){
+const Stack = createNativeStackNavigator();  // ← Stack maiúsculo
+export default function Router() {
     return (
         <NavigationContainer>
-            <stack.Navigator>
-              <stack.Screen  name="login"component={login}/>
-              <stack.Screen name="home"component={home}/>
-              <stack.Screen name="novamovimentacao"component={novamovimentacao}/>
-            </stack.Navigator>
+            <Stack.Navigator>
+                <Stack.Screen name="login" component={Login} />
+                <Stack.Screen name="home" component={Home} />
+                <Stack.Screen name="novamovimentacao" component={Novamovimentacao} />
+            </Stack.Navigator>
         </NavigationContainer>
     )
 }

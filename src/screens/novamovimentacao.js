@@ -1,39 +1,34 @@
 import { useState } from "react";
-import { View, textinput, button, stylesheet } from "react-native";
+import { View, TextInput, Button, StyleSheet } from "react-native"; 
 import api from "../services/api";
 
-export default function novamovimentacao({ route, naviagtion}){
-    const { usuarios} = route.params;
+export default function novamovimentacao({ route, navigation }) {  
+    const { usuario } = route.params;  // 
     const [titulo, setTitulo] = useState("");
     const [valor, setValor] = useState("");
     const [tipo, setTipo] = useState("");
 
-    async function salvar(){
-        await api.post("/movimentacoes",{
-            usuario_id : usuario.usuario_id,
+    async function salvar() {
+        await api.post("/movimentacoes", {
+            usuario_id: usuario.id,  
             titulo,
             valor,
             tipo
-            
         })
-        naviagtion.goback();
+        navigation.goBack(); 
     }
-    return(
-        <view style={stylesheet.conteiner}>
-            <textinput placeholder="titulo" style=
-            {styles.input} onchangetext= {setTitulo}/>
-            <textinput placeholder="valor" style=
-            {styles.input} onchangetext={setValor}/>
-            <textinput placeholder="tipo" style=
-            {styles.input} onchangetext={setTipo}/>
-            <button title="salvar" onpress={salvar}/>
-         </view>
+
+    return (
+        <View style={styles.conteiner}>
+            <TextInput placeholder="titulo" style={styles.input} onChangeText={setTitulo} />
+            <TextInput placeholder="valor" style={styles.input} onChangeText={setValor} />
+            <TextInput placeholder="tipo" style={styles.input} onChangeText={setTipo} />
+            <Button title="salvar" onPress={salvar} />
+        </View>
     )
 }
 
-const style = stylesheet.create({
-    conteiner : {flex: 1, padding: 20},
-    input : {borderWidht: 1, marginBotton:10,
-    padding: 10
-    }
+const styles = StyleSheet.create({ 
+    conteiner: { flex: 1, padding: 20 },
+    input: { borderWidth: 1, marginBottom: 10, padding: 10 }  
 })

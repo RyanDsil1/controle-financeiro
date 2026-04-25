@@ -1,33 +1,31 @@
 import { useState } from "react";
-import {View, textinput, button, stylesheet} from "react-native";
+import { View, TextInput, Button, StyleSheet } from "react-native";
 import api from "../services/api";
-import { Button } from "react-native/types_generated/index";
 
-export default function login({login}){
+export default function Login({ navigation }) {
     const [nome, setNome] = useState("");
     const [email, setEmail] = useState("");
 
-    async function entrar(){
-        const response = await api.post("/usuario/login",{
-            nome,
-            email
-        })
-
-        Navigation.navigate("home", {
-            usuario : response.data
-        }) 
+    async function entrar() {
+        try {
+            const response = await api.post("/usuarios/login", { nome, email })
+            console.log("resposta:", response.data)
+            navigation.navigate("home", { usuario: response.data })
+        } catch (erro) {
+            console.log("erro:", erro.message)
+        }
     }
-    return(
-        <View style={styles.conteiner}>
-            <textinput placeholder="nome" style={styles.input} onchangetext = {setNome}/>
-            <textinput placeholder="email" style={styles.input} onchangetext={setEmail}/>
-            <Button title="entrar" onPress={entrar}/>
 
+    return (
+        <View style={styles.conteiner}>
+            <TextInput placeholder="nome" style={styles.input} onChangeText={setNome} />
+            <TextInput placeholder="email" style={styles.input} onChangeText={setEmail} />
+            <Button title="entrar" onPress={() => entrar()} />
         </View>
     )
 }
 
-const styles = styleSheet.create({
-    Container : {flex:1, justifyContent:"center", padding:20},
-    input : {borderWidht: 1, marginBottom: 10, padding:10},
+const styles = StyleSheet.create({
+    conteiner: { flex: 1, justifyContent: "center", padding: 20 },
+    input: { borderWidth: 1, marginBottom: 10, padding: 10 },
 })
